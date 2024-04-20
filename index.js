@@ -64,6 +64,9 @@ passport.deserializeUser((user, done) => {
   done(null, user);
 });
 
+app.get('/', (req, res) => {
+  res.send("opa");
+})
 app.get('/auth/google', passport.authenticate('google', {scope: ['profile', 'email']}));
 
 app.get('/auth/google/callback', passport.authenticate('google', {
