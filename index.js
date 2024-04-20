@@ -1,7 +1,7 @@
 import 'dotenv/config';
 import express from 'express';
 import cors from 'cors';
-import routes from '../backend/src/controller/routes.js';
+import routes from 'src/controller/routes.js';
 import session from 'express-session';
 import passport from 'passport';
 import OAuth2Strategy from 'passport-google-oauth2';
