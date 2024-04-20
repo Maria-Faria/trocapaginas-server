@@ -28,9 +28,9 @@ app.use(session({
   saveUninitialized: true
 }));
 
-/*app.get('/', (req, res) => {
+app.get('/', (req, res) => {
   res.send('Meu servidor backend está rodando!'); 
-});*/
+});
 
 app.use(passport.initialize());
 app.use(passport.session());
@@ -66,12 +66,19 @@ passport.deserializeUser((user, done) => {
 
 app.get('/auth/google', passport.authenticate('google', {scope: ['profile', 'email']}));
 
-app.get('/auth/google/callback', (req, res) => { 
-  passport.authenticate('google', {
-    res.send('vc está logado!');
-  })
-});
 
+app.get('/auth/google/callback', (req, res, next) => {
+  passport.authenticate('google', (err, user, info) => {
+    if (err) { // Se houver um erro durante a autenticação
+      return res.status(500).send('Erro durante a autenticação do Google.');
+    }
+    if (!user) { // Se a autenticação falhar
+      return res.status(401).send('Autenticação do Google falhou.');
+    }
+    // Se a autenticação for bem-sucedida, envie uma mensagem indicando que o usuário está logado
+    res.send('Você está logado!');
+  })(req, res, next);
+});
 app.listen(port, () => { 
   console.log(`Servidor rodando na porta ${port}`);
 });
