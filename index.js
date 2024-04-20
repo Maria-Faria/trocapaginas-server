@@ -75,8 +75,8 @@ app.get('/auth/google/callback', (req, res, next) => {
     if (!user) { // Se a autenticação falhar
       return res.status(401).send('Autenticação do Google falhou.');
     }
-    // Se a autenticação for bem-sucedida, envie uma mensagem indicando que o usuário está logado
-    res.send('Você está logado!');
+
+    return res.status(200).send('Login efetuado com sucesso!');
   })(req, res, next);
 });
 app.listen(port, () => { 
