@@ -39,7 +39,7 @@ passport.use(
   new oauth2strategy({
     clientID: clientid,
     clientSecret: clientsecret,
-    callbackURL: "http://localhost:6005/auth/google/callback",
+    callbackURL: "https://trocapaginas-server-production.up.railway.app/auth/google/callback",
     scope: ['profile', 'email']
   },
 
@@ -64,14 +64,11 @@ passport.deserializeUser((user, done) => {
   done(null, user);
 });
 
-app.get('/', (req, res) => {
-  res.send("opa");
-})
 app.get('/auth/google', passport.authenticate('google', {scope: ['profile', 'email']}));
 
-app.get('/auth/google/callback', passport.authenticate('google', {
-  successRedirect: 'http://localhost:8081/slogan',
-  failureRedirect: 'http://localhost:8081/login'
+app.get('https://trocapaginas-server-production.up.railway.app/auth/google/callback', passport.authenticate('google', {
+  successRedirect: 'http://192.168.1.67:8081/slogan',
+  failureRedirect: 'http://192.168.1.67:8081/login'
 }));
 
 app.listen(port, () => { 
