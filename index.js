@@ -66,7 +66,9 @@ passport.deserializeUser((user, done) => {
 
 app.get('/auth/google', passport.authenticate('google', {scope: ['profile', 'email']}));
 
-app.get('/auth/google/callback', passport.authenticate('google'));
+app.get('/auth/google/callback', passport.authenticate('google', (req, res) => {
+  res.send('vc está logado!');
+}));
 
 app.listen(port, () => { 
   console.log(`Servidor rodando na porta ${port}`);
