@@ -75,8 +75,9 @@ app.get('/auth/google/callback', passport.authenticate('google', {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login efetuado!</title>
-      <body style="display: flex; flex-direction:column; align-items: center; margin-top: 50%; background: #f2f2f2; color: #170303; font-family: Roboto">
+      <body style="display: flex; flex-direction:column; align-items: center; margin-top: 45%; background: #f2f2f2; color: #170303; font-family: Roboto">
         <img src="https://cdn1.iconfinder.com/data/icons/material-core/20/check-circle-outline-512.png" alt="check" style="width: 200px; height: 200px;">
+        <br>
         <h2 style="font-size: 20px;">Autenticação com o Google realizada com sucesso!</h2>
         <p style="font-size: 18px">Feche o navegador para voltar ao aplicativo!</p>
       </body>
