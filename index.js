@@ -69,10 +69,12 @@ app.get('/auth/google', passport.authenticate('google', {scope: ['profile', 'ema
 app.get('/auth/google/callback', passport.authenticate('google', {
 }), (req, res) => {
   const htmlResponse = `
-    <html>
-      <head>
-        <title>Autenticação com o Google</title>
-      </head>
+  <!DOCTYPE html>
+  <html lang="en">
+    <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login efetuado!</title>
       <body style="display: flex; flex-direction:column; align-items: center; margin-top: 50%; background: #f2f2f2; color: #170303; font-family: Roboto">
         <h2>Autenticação com o Google realizada com sucesso!</h2>
         <p>Feche o navegador para voltar ao aplicativo!</p>
