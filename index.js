@@ -67,7 +67,7 @@ passport.deserializeUser((user, done) => {
 app.get('/auth/google', passport.authenticate('google', {scope: ['profile', 'email']}));
 
 app.get('/auth/google/callback', passport.authenticate('google', {
-  successRedirect: 'http://localhost:8081/slogan',
+  successRedirect: 'http://localhost:8081/google-success',
   failureRedirect: 'http://192.168.1.67:8081/login'
 
 }));
