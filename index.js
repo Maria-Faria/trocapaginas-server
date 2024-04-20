@@ -67,10 +67,21 @@ passport.deserializeUser((user, done) => {
 app.get('/auth/google', passport.authenticate('google', {scope: ['profile', 'email']}));
 
 app.get('/auth/google/callback', passport.authenticate('google', {
-  successRedirect: 'trocapaginas://login',
-  failureRedirect: 'http://192.168.1.67:8081/login'
+}), (req, res) => {
+  const htmlResponse = `
+    <html>
+      <head>
+        <title>Autenticação com o Google</title>
+      </head>
+      <body style="display: flex; flex-direction:column; align-items: center;">
+        <h2 style="color: brown-dark;">Autenticação com o Google realizada com sucesso!</h2>
+        <p>Feche o navegador para voltar ao aplicativo!</p>
+      </body>
+    </html>
+  `;
+  res.send(htmlResponse);
+});
 
-}));
 
 app.listen(port, () => { 
   console.log(`Servidor rodando na porta ${port}`);
