@@ -77,7 +77,7 @@ app.get('/auth/google/callback', passport.authenticate('google', {
     <title>Login efetuado!</title>
       <body style="display: flex; flex-direction:column; align-items: center; margin-top: 50%; background: #f2f2f2; color: #170303; font-family: Roboto">
         <h2 style="font-size: 20px;">Autenticação com o Google realizada com sucesso!</h2>
-        <p style="font-size: 15px">Feche o navegador para voltar ao aplicativo!</p>
+        <p style="font-size: 18px">Feche o navegador para voltar ao aplicativo!</p>
       </body>
     </html>
   `;
