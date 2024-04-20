@@ -68,7 +68,7 @@ app.get('/auth/google', passport.authenticate('google', {scope: ['profile', 'ema
 
 
 app.get('https://trocapaginas-server-production.up.railway.app/auth/google/callback', passport.authenticate('google', {
-  successRedirect: 'exp://192.168.1.67:8081/slogan',
+  successRedirect: 'trocapaginas://slogan',
   failureRedirect: 'exp://192.168.1.67:8081/login'
 
 }));
