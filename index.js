@@ -66,7 +66,7 @@ passport.deserializeUser((user, done) => {
 
 app.get('/auth/google', passport.authenticate('google', {scope: ['profile', 'email']}));
 
-app.get('https://trocapaginas-server-production.up.railway.app/auth/google/callback', passport.authenticate('google', {
+app.get('/auth/google/callback', passport.authenticate('google', {
   successRedirect: 'http://localhost:8081/slogan',
   failureRedirect: 'http://192.168.1.67:8081/login'
 
