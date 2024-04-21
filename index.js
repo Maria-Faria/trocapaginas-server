@@ -20,9 +20,12 @@ const clientsecret = process.env.GOOGLE_CLIENT_SECRET;
 async function userExists(email) {
     await database.getUsers().then(users => {
         console.log(users);
-        console.log(users.email);
+        /*console.log(users.email);
 
-        return users.find(user => user.email === email)
+        return users.find(user => user.email === email)*/
+
+        const userWithEmail = users.find(user => user.email === email);
+        console.log(userWithEmail);
     });
 }
 
