@@ -5,7 +5,7 @@ import routes from './src/controller/routes.js';
 import session from 'express-session';
 import passport from 'passport';
 import OAuth2Strategy from 'passport-google-oauth2';
-import {Database} from 'database.js';
+import {Database} from './database.js';
 import {User} from 'src/models/user.js';
 
 const oauth2strategy = OAuth2Strategy.Strategy;
