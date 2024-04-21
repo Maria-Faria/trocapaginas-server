@@ -23,7 +23,12 @@ async function userExists(email) {
 
         return users.find(user => user.email === email)*/
 
-        const userWithEmail = users.find(user => user.email === email);
+        const userWithEmail = users.find(user => {
+          console.log("Email do usuário atual:", user.email);
+          console.log("Email fornecido:", email);
+          return user.email === email;
+        });
+        
         console.log(userWithEmail);
     });
 }
