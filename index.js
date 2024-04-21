@@ -18,15 +18,13 @@ const clientid = process.env.GOOGLE_CLIENT_ID;
 const clientsecret = process.env.GOOGLE_CLIENT_SECRET;
 
 async function userExists(email) {
-    return await database.getUsers().then(users => {
-      const userWithEmail = users.find(user => {
-        return user.email === email;
-      });
-
-      console.log("Usuário com o email fornecido:", userWithEmail);
-
-      return userWithEmail;
+  return await database.getUsers().then(users => {
+    const userWithEmail = users.find(user => {
+      return user.email === email;
     });
+
+    return userWithEmail;
+  });
 }
 
 app.use(cors({
@@ -60,15 +58,9 @@ passport.use(
     },
 
     async (accessToken, refreshToken, profile, done) => {
-        console.log('profile', profile);
-        console.log('---------------------------------');
-        console.log(await userExists(profile.emails[0].value));
-
         try {
 
             if(await userExists(profile.emails[0].value) === undefined) {
-                console.log('oii');
-
                 user.email = profile.emails[0].value;
                 user.name = profile.displayName;
                 user.password = '';
@@ -79,8 +71,9 @@ passport.use(
                 await database.create(user.name, user.email, user.password, user.photo).then(() => {
                     console.log('user add');
                 });  
+
             }else {
-                console.log('hmmm');
+                console.log('Usuário já cadastrado!');
             }
 
             return done(null, profile);
