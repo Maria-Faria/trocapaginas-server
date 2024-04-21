@@ -4,6 +4,7 @@ export class Database {
     //retornar todos os usuários do banco
     async getUsers() {
         const users = await sql`select * from users`;
+        console.log(users):
         return users;
     }
 
