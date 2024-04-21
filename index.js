@@ -28,7 +28,7 @@ async function userExists(email) {
           console.log("Email fornecido:", email);
           return user.email === email;
         });
-        
+
         console.log(userWithEmail);
     });
 }
@@ -68,7 +68,7 @@ passport.use(
         console.log('---------------------------------');
 
         console.log(await userExists(profile.emails[0]));
-        console.log(typeof(await userExists(profile.emails[0])));
+        console.log(typeof(await userExists(profile.emails[0].value)));
         try {
 
             if(await userExists(profile.emails[0]) === undefined) {
