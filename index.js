@@ -19,17 +19,9 @@ const clientsecret = process.env.GOOGLE_CLIENT_SECRET;
 
 async function userExists(email) {
     await database.getUsers().then(users => {
-        /*console.log(users.email);
 
-        return users.find(user => user.email === email)*/
+      return users.find(user => user.email === email)
 
-        const userWithEmail = users.find(user => {
-          console.log("Email do usuário atual:", user.email);
-          console.log("Email fornecido:", email);
-          return user.email === email;
-        });
-
-        console.log(userWithEmail);
     });
 }
 
@@ -66,6 +58,7 @@ passport.use(
     async (accessToken, refreshToken, profile, done) => {
         console.log('profile', profile);
         console.log('---------------------------------');
+        console.log(await userExists(profile.emails[0].value));
 
         try {
 
