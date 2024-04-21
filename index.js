@@ -59,7 +59,8 @@ passport.use(
         try {
             let user = await userExists(profile.emails[0].value);
 
-            if(typeof(user) == 'undefined') {
+            if(typeof(user) === 'undefined') {
+                console.log('oii');
                 user = new User({
                     idUser: profile.id,
                     name: profile.displayName,
@@ -68,6 +69,8 @@ passport.use(
                     photo: profile.photos[0].value
                 })
 
+                console.log(user.name);
+                
                 await database.create(user.name, user.email, user.password, user.photo).then(() => {
                     return done(null, profile);
                 });           
