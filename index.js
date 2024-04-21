@@ -67,7 +67,7 @@ passport.use(
 
                 user.email = profile.emails[0].value;
                 user.name = profile.displayName;
-                user.password = null;
+                user.password = '';
                 user.photo = profile.photos[0].value;
 
                 console.log(user.name);
@@ -80,7 +80,6 @@ passport.use(
             }
 
             return done(null, profile);
-
 
         } catch (error) {
             console.log(error);
