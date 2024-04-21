@@ -69,7 +69,7 @@ passport.use(
                 console.log(user.name);
 
                 await database.create(user.name, user.email, user.password, user.photo).then(() => {
-                    console.log('user add'):
+                    console.log('user add');
                 });  
             }else {
                 console.log('hmmm');
