@@ -58,6 +58,8 @@ passport.use(
         console.log('profile', profile);
         console.log('---------------------------------');
 
+        console.log(await userExists(profile.emails[0]));
+        console.log(typeof(await userExists(profile.emails[0])));
         try {
 
             if(typeof(await userExists(profile.emails[0])) === undefined) {
