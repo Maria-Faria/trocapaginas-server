@@ -6,7 +6,7 @@ import session from 'express-session';
 import passport from 'passport';
 import OAuth2Strategy from 'passport-google-oauth2';
 import {Database} from '../backend/database.js';
-import {User} from '../backend/src/models/user.js';
+import {User} from 'src/models/user.js';
 
 const oauth2strategy = OAuth2Strategy.Strategy;
 const app = express(); 
