@@ -56,8 +56,12 @@ passport.use(
 
     async (accessToken, refreshToken, profile, done) => {
         console.log('profile', profile);
+        console.log('---------------------------------');
 
         try {
+
+            console.log(userExists(profile.emails[0]);
+            
             if(typeof(userExists(profile.emails[0])) === undefined) {
                 console.log('oii');
 
