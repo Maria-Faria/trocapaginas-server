@@ -24,10 +24,10 @@ async function userExists(email) {
         console.log("Email fornecido:", email);
         return user.email === email;
       });
-      
+
       console.log("Usuário com o email fornecido:", userWithEmail);
 
-      //return users.find(user => user.email === email)
+      return userWithEmail;
 
     });
 }
