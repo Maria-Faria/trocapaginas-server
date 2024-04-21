@@ -60,7 +60,7 @@ passport.use(
 
         try {
 
-            console.log(userExists(profile.emails[0]);
+            console.log(userExists(profile.emails[0]));
             
             if(typeof(userExists(profile.emails[0])) === undefined) {
                 console.log('oii');
