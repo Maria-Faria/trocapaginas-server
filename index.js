@@ -68,9 +68,10 @@ passport.use(
                     photo: profile.photos[0].value
                 })
 
-                database.create(user.name, user.email, user.password, user.photo);
+                await database.create(user.name, user.email, user.password, user.photo).then(() => {
+                    return done(null, profile);
+                });           
             }
-            return done(null, profile);
 
         } catch (error) {
         console.log(error);
