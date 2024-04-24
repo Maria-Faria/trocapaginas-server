@@ -100,11 +100,7 @@ passport.deserializeUser((user, done) => {
 //app.get('/auth/google', passport.authenticate('google', {scope: ['profile', 'email']}));
 
 app.get('/login/google', (req, res) => {
-  res.setHeader("Access-Control-Allow-Origin", "*")
-  res.setHeader("Access-Control-Allow-Credentials", "true");
-  res.setHeader("Access-Control-Max-Age", "1800");
-  res.setHeader("Access-Control-Allow-Headers", "content-type");
-  res.setHeader( "Access-Control-Allow-Methods", "PUT, POST, GET, DELETE, PATCH, OPTIONS" ); 
+  res.setHeader("Access-Control-Allow-Origin", "*"); 
   res.redirect(`https://accounts.google.com/o/oauth2/v2/auth?response_type=code&redirect_uri=https://trocapaginas-server-production.up.railway.app/auth/google/callback&scope=profile%20email&client_id=${clientid}`);
 });
 
@@ -114,11 +110,7 @@ app.get('/login/google', (req, res) => {
 }));*/
 
 app.get('/auth/google/callback', (req, res) => {
-  res.setHeader("Access-Control-Allow-Origin", "*")
-  res.setHeader("Access-Control-Allow-Credentials", "true");
-  res.setHeader("Access-Control-Max-Age", "1800");
-  res.setHeader("Access-Control-Allow-Headers", "content-type");
-  res.setHeader( "Access-Control-Allow-Methods", "PUT, POST, GET, DELETE, PATCH, OPTIONS" ); 
+  res.setHeader("Access-Control-Allow-Origin", "*");
   // Lide com a resposta do Google aqui
   console.log(res.data);
 });
