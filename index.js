@@ -60,6 +60,9 @@ passport.use(
     async (accessToken, refreshToken, profile, done) => {
         try {
 
+            console.log('teste:')
+            console.log(userExists(profile.emails[0].value))
+
             if(await userExists(profile.emails[0].value) === undefined) {
                 user.email = profile.emails[0].value;
                 user.name = profile.displayName;
