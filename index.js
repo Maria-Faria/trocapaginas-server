@@ -28,7 +28,7 @@ async function userExists(email) {
 }
 
 app.use(cors({
-  origin: '*',
+  origin: 'htpp://localhost:8081',
   methods: 'GET, POST, PUT, DELETE',
   credentials: true
   }
