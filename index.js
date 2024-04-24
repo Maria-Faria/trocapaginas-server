@@ -67,8 +67,6 @@ passport.use(
 
             if(await userExists(profile.emails[0].value) === undefined) {
 
-                console.log(user.name);
-
                 await database.create(user.name, user.email, user.password, user.photo).then(() => {
                     console.log('user add');
                 });  
@@ -120,7 +118,6 @@ app.get('/login/success', (req, res) => {
     `;
 
     res.status(200).send(htmlResponse);
-    res.redirect('/user-data');
 });
 
 app.get('/login/failed', (req, res) => {
