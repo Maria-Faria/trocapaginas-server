@@ -120,7 +120,7 @@ app.get('/auth/google/callback', (req, res) => {
   res.setHeader("Access-Control-Allow-Headers", "content-type");
   res.setHeader( "Access-Control-Allow-Methods", "PUT, POST, GET, DELETE, PATCH, OPTIONS" ); 
   // Lide com a resposta do Google aqui
-  console.log(res);
+  console.log(res.data);
 });
 
 
