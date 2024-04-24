@@ -140,12 +140,12 @@ app.get('/login/failed', (req, res) => {
     res.status(401).send(htmlResponse);
 });
 
-app.get('/user-data', (req, res) => {
+app.get('/user-data', async (req, res) => {
   if(req.isAuthenticade) {
     res.json(req.user);
   
   }else {
-    res.status(401).json({error: 'Uusário não autenticado'});
+    res.status(401).json({error: 'Usuário não autenticado'});
   }
 });
 
