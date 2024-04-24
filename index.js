@@ -61,7 +61,7 @@ passport.use(
         try {
 
             console.log('teste:')
-            console.log(userExists(profile.emails[0].value))
+            console.log(await userExists(profile.emails[0].value))
 
             if(await userExists(profile.emails[0].value) === undefined) {
                 user.email = profile.emails[0].value;
