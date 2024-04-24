@@ -67,7 +67,6 @@ passport.use(
 
             if(await userExists(profile.emails[0].value) === undefined) {
 
-
                 console.log(user.name);
 
                 await database.create(user.name, user.email, user.password, user.photo).then(() => {
@@ -98,7 +97,7 @@ passport.deserializeUser((user, done) => {
 app.get('/auth/google', passport.authenticate('google', {scope: ['profile', 'email']}));
 
 app.get('/auth/google/callback', passport.authenticate('google', {
-  successRedirect: '/user-data',
+  successRedirect: '/login/success',
   failureRedirect: '/login/failed'
 }));
 
@@ -121,6 +120,7 @@ app.get('/login/success', (req, res) => {
     `;
 
     res.status(200).send(htmlResponse);
+    res.redirect('/user-data');
 });
 
 app.get('/login/failed', (req, res) => {
@@ -144,8 +144,12 @@ app.get('/login/failed', (req, res) => {
 });
 
 app.get('/user-data', (req, res) => {
-  res.send(200).json(req.user);
-  res.redirect('/login/success');
+  if(req.isAuthenticade) {
+    res.json(req.user);
+  
+  }else {
+    res.status(401).json({error: 'Uusário não autenticado'});
+  }
 });
 
 
