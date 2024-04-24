@@ -121,6 +121,7 @@ app.get('/login/success', (req, res) => {
     `;
 
     res.status(200).send(htmlResponse);
+    res.redirect('/user-data');
 });
 
 app.get('/login/failed', (req, res) => {
