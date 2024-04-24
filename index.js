@@ -60,14 +60,13 @@ passport.use(
     async (accessToken, refreshToken, profile, done) => {
         try {
 
-            console.log('teste:')
-            console.log(await userExists(profile.emails[0].value))
+            user.email = profile.emails[0].value;
+            user.name = profile.displayName;
+            user.password = '';
+            user.photo = profile.photos[0].value;
 
             if(await userExists(profile.emails[0].value) === undefined) {
-                user.email = profile.emails[0].value;
-                user.name = profile.displayName;
-                user.password = '';
-                user.photo = profile.photos[0].value;
+
 
                 console.log(user.name);
 
@@ -116,6 +115,8 @@ app.get('/auth/google/callback', passport.authenticate('google', {
         </html>
     `;
     res.send(htmlResponse);
+
+    return user;
 });
 
 
