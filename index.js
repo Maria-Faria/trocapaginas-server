@@ -98,7 +98,7 @@ passport.deserializeUser((user, done) => {
 app.get('/auth/google', passport.authenticate('google', {scope: ['profile', 'email']}));
 
 app.get('/auth/google/callback', passport.authenticate('google', {
-  successRedirect: '/login/success',
+  successRedirect: '/user-data',
   failureRedirect: '/login/failed'
 }));
 
@@ -121,7 +121,6 @@ app.get('/login/success', (req, res) => {
     `;
 
     res.status(200).send(htmlResponse);
-    res.redirect('/user-data');
 });
 
 app.get('/login/failed', (req, res) => {
@@ -145,12 +144,8 @@ app.get('/login/failed', (req, res) => {
 });
 
 app.get('/user-data', (req, res) => {
-  if(req.isAuthenticade) {
-    res.json(req.user);
-  
-  }else {
-    res.status(401).json({error: 'Uusário não autenticado'});
-  }
+  res.send(200).json(req.user);
+  res.redirect('/login/success');
 });
 
 
