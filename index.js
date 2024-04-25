@@ -62,7 +62,6 @@ passport.use(
     },
 
     async (accessToken, refreshToken, profile, done) => {
-      console.log('profile: ', profile);
         try {
 
             user.email = profile.emails[0].value;
@@ -133,7 +132,7 @@ app.get('/success', (req, res) => {
 
     res.status(200).send(htmlResponse);
 });
- 
+
 app.get('/login/success', (req, res) => {
   /*const htmlResponse = `
     <!DOCTYPE html>
