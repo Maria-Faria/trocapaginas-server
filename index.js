@@ -34,9 +34,9 @@ async function userExists(email) {
   }
 ));*/
 
-app.use(cors({
+/*app.use(cors({
   origin: "http://localhost:8081",
-}));
+}));*/
 
 app.use(express.json());
 
