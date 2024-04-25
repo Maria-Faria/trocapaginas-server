@@ -34,7 +34,7 @@ async function userExists(email) {
   }
 ));*/
 app.use(cors({
-  origin: 'http://127.0.0.1:8081',
+  origin: 'http://localhost:8081/',
   }
 ));
 
