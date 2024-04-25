@@ -151,7 +151,7 @@ app.get('/login/success', (req, res) => {
     `;
 
     res.status(200).send(htmlResponse);*/
-    console.log('req', req.user)
+    console.log('req', user)
 });
 
 app.get('/login/failed', (req, res) => {
