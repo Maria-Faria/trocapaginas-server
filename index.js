@@ -57,11 +57,12 @@ passport.use(
     new oauth2strategy({
         clientID: clientid,
         clientSecret: clientsecret,
-        callbackURL: "https://trocapaginas-server-production.up.railway.app/auth/google/callback",
+        callbackURL: "/auth/google/callback",
         scope: ['profile', 'email']
     },
 
     async (accessToken, refreshToken, profile, done) => {
+      console.log('profile: ', profile);
         try {
 
             user.email = profile.emails[0].value;
@@ -79,7 +80,7 @@ passport.use(
                 console.log('Usuário já cadastrado!');
             }
 
-            return done(null, profile);
+            return done(null, user);
 
         } catch (error) {
             console.log(error);
