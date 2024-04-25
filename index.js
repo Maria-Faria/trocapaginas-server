@@ -27,10 +27,14 @@ async function userExists(email) {
   });
 }
 
-app.use(cors({
+/*app.use(cors({
   origin: 'http://localhost:8081',
   methods: 'GET, POST, PUT, DELETE',
   credentials: true
+  }
+));*/
+app.use(cors({
+  origin: 'http://127.0.0.1:8081',
   }
 ));
 
@@ -96,7 +100,6 @@ passport.deserializeUser((user, done) => {
 //app.get('/auth/google', passport.authenticate('google', {scope: ['profile', 'email']}));
 
 app.get('/login/google', (req, res) => {
-  res.setHeader("Access-Control-Allow-Origin", "http://localhost:8081"); 
   res.redirect(`https://accounts.google.com/o/oauth2/v2/auth?response_type=code&redirect_uri=https://trocapaginas-server-production.up.railway.app/auth/google/callback&scope=profile%20email&client_id=${clientid}`);
 });
 
@@ -106,7 +109,6 @@ app.get('/login/google', (req, res) => {
 }));*/
 
 app.get('/auth/google/callback', (req, res) => {
-  res.setHeader("Access-Control-Allow-Origin", "*");
   // Lide com a resposta do Google aqui
   console.log(res.data);
 });
