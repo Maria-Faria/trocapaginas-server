@@ -27,12 +27,12 @@ async function userExists(email) {
   });
 }
 
-/*app.use(cors({
+app.use(cors({
   origin: 'http://localhost:8081',
   methods: 'GET, POST, PUT, DELETE',
   credentials: true
   }
-));*/
+));
 
 /*app.use(cors({
   origin: "http://localhost:8081",
