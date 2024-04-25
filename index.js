@@ -47,7 +47,6 @@ app.use(session({
 }));
 
 app.get('/', (req, res) => {
-  res.setHeader("Access-Control-Allow-Origin", "*"); 
   res.send('Meu servidor backend está rodando!'); 
 });
 
@@ -97,21 +96,21 @@ passport.deserializeUser((user, done) => {
   done(null, user);
 });
 
-//app.get('/auth/google', passport.authenticate('google', {scope: ['profile', 'email']}));
+app.get('/auth/google', passport.authenticate('google', {scope: ['profile', 'email']}));
 
-app.get('/login/google', (req, res) => {
+/*app.get('/login/google', (req, res) => {
   res.redirect(`https://accounts.google.com/o/oauth2/v2/auth?response_type=code&redirect_uri=https://trocapaginas-server-production.up.railway.app/auth/google/callback&scope=profile%20email&client_id=${clientid}`);
-});
+});*/
 
-/*app.get('/auth/google/callback', passport.authenticate('google', {
+app.get('/auth/google/callback', passport.authenticate('google', {
   successRedirect: '/login/success',
   failureRedirect: '/login/failed'
-}));*/
+}));
 
-app.get('/auth/google/callback', (req, res) => {
+/*app.get('/auth/google/callback', (req, res) => {
   // Lide com a resposta do Google aqui
   console.log(res.data);
-});
+});*/
 
 
 
