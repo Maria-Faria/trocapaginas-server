@@ -134,7 +134,7 @@ app.get('/success', (req, res) => {
 });
 
 app.get('/login/success', (req, res) => {
-
+    console.log(user);
     return user;
 });
 
