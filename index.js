@@ -134,7 +134,7 @@ app.get('/success', (req, res) => {
 });
 
 app.get('/login/success', (req, res) => {
-  res.send(user);
+  res.send(JSON.stringify(user));
 });
 
 app.get('/login/failed', (req, res) => {
