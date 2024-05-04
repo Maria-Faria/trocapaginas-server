@@ -76,6 +76,7 @@ routes.post('/create', async (req, res) => {
 
 //verificar se email existe
 routes.post('/verificar-email', async (req, res) => {
+    console.log('entrou')
     const {email} = req.body;
 
     if(await userExists(email) != undefined) {
