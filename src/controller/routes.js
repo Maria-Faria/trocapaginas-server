@@ -171,7 +171,7 @@ routes.post('/review', async (req, res) => {
     review.title = data_review.title;
     review.content = data_review.text;
     review.nameBook = data_review.nameBook;
-    review.rating = data_review.avaliation;
+    review.rating = data_review.rating;
     review.timePost = new Date().toLocaleString(Intl.DateTimeFormat("pt-BR"))
 
     console.log(review)
