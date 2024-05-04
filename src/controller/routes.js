@@ -179,7 +179,8 @@ routes.post('/review', async (req, res) => {
         });    
 
 
-    } catch (error) {   //retornando erro
+    } catch (error) {
+        console.log(error)   //retornando erro
         return res.status(500).send('Erro ao criar a resenha');
     }
 
