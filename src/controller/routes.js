@@ -76,7 +76,6 @@ routes.post('/create', async (req, res) => {
 
 //verificar se email existe
 routes.post('/verificar-email', async (req, res) => {
-    console.log('entrou')
     const {email} = req.body;
 
     if(await userExists(email) != undefined) {
@@ -159,6 +158,7 @@ routes.post('/post', async (req, res) => {
 });
 
 routes.post('/review', async (req, res) => {
+    console.log('opa')
     const {data_review} = req.body; // recebendo o objeto review
     const user_owner_post = await userExists(data_review.userEmail);
 
