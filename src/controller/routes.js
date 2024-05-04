@@ -12,6 +12,8 @@ const salt = bcrypt.genSaltSync(10);
 const user = new User();
 const post = new Post();
 const review = new Review();
+const validationCode = [];
+
 async function userExists(email) {
     return await database.getUsers().then(users => {
       const userWithEmail = users.find(user => {
