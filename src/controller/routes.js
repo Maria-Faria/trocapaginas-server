@@ -164,8 +164,6 @@ routes.post('/review', async (req, res) => {
     const {data_review} = req.body; // recebendo o objeto review
     const user_owner_post = await userExists(data_review.userEmail);
 
-    console.log(data_review)
-
     validateImage(data_review);
 
     review.idUser = user_owner_post.id_user;
