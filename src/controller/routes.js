@@ -30,7 +30,7 @@ async function userExists(email) {
         post.imageBook = null;
 
     } else {
-        
+
         review.imageBook = data.ImageURI;
         post.imageBook = data.ImageURI;
     }    
@@ -174,7 +174,7 @@ routes.post('/review', async (req, res) => {
     review.rating = data_review.avaliation;
     review.timePost = new Date().toLocaleString(Intl.DateTimeFormat("pt-BR"))
 
-    console.log(data_review)
+    console.log(review)
     try{
         await database.createReview(review).then(() => { //criando o review no banco de dados
             return res.status(201).send('Resenha criada com sucesso!');
