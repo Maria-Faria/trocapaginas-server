@@ -1,4 +1,4 @@
-import {sql} from './database-connect.js';
+import {sql} from '../database-connect.js';
 
 export class Database {
     async getUsers() {
