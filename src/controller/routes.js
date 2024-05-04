@@ -160,9 +160,11 @@ routes.post('/post', async (req, res) => {
 });
 
 routes.post('/review', async (req, res) => {
-    console.log('opa')
+
     const {data_review} = req.body; // recebendo o objeto review
     const user_owner_post = await userExists(data_review.userEmail);
+
+    console.log(data_review)
 
     validateImage(data_review);
 
