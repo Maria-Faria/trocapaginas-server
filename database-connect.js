@@ -1,6 +1,7 @@
 import 'dotenv/config'
 import postgres from 'postgres'
 
+console.log('ok')
 export const sql = postgres({
   host: process.env.DB_HOST,
   database: process.env.DB_NAME,

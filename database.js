@@ -19,7 +19,6 @@ export class Database {
     }
 
     async createReview(review) {
-        console.log('database')
         await sql `insert into reviews (id_user, title, content, nameBook, rating, image, time_post) values (${review.idUser},${review.title}, ${review.content}, ${review.nameBook}, ${review.rating}, ${review.imageBook}, ${review.timePost})`;
     }
 }
