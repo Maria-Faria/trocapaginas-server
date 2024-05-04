@@ -1,5 +1,5 @@
 import express from 'express';
-import {Database} from '././database.js';
+import {Database} from '../../../database.js';
 import {ResetSenha} from '../../reset-senha.js';
 import bcrypt from 'bcryptjs';
 import {User} from '../models/user.js';
