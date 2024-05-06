@@ -17,6 +17,8 @@ const user = new User();
 const clientid = process.env.GOOGLE_CLIENT_ID;
 const clientsecret = process.env.GOOGLE_CLIENT_SECRET;
 
+let userValidation = false;
+
 async function userExists(email) {
   return await database.getUsers().then(users => {
     const userWithEmail = users.find(user => {
@@ -62,7 +64,7 @@ passport.use(
     },
 
     async (accessToken, refreshToken, profile, done) => {
-        const accountSelected = true;
+        accountSelected = true;
         console.log(accountSelected);
       
         try {
@@ -98,6 +100,12 @@ passport.serializeUser((user, done) => {
 passport.deserializeUser((user, done) => {
   done(null, user);
 });
+
+app.get('/login-google', (req, res) => {
+  user.email = null;
+
+  res.send('/auth/google') ;
+})
 
 app.get('/auth/google', passport.authenticate('google', {scope: ['profile', 'email']}));
 
