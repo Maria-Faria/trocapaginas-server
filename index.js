@@ -14,6 +14,8 @@ const port = process.env.PORT;
 const database = new Database();
 const user = new User();
 
+let cont = 0;
+
 const clientid = process.env.GOOGLE_CLIENT_ID;
 const clientsecret = process.env.GOOGLE_CLIENT_SECRET;
 
@@ -62,6 +64,8 @@ passport.use(
     },
 
     async (accessToken, refreshToken, profile, done) => {
+      console.log(cont);
+      cont++;
         try {
 
             user.email = profile.emails[0].value;
@@ -134,6 +138,7 @@ app.get('/success', (req, res) => {
 });
 
 app.get('/login/success', (req, res) => {
+  console.log(user)
   res.send(JSON.stringify(user));
 });
 
