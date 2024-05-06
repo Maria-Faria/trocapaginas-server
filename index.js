@@ -14,7 +14,7 @@ const port = process.env.PORT;
 const database = new Database();
 const user = new User();
 
-let cont = 0;
+let accountSelected = false;
 
 const clientid = process.env.GOOGLE_CLIENT_ID;
 const clientsecret = process.env.GOOGLE_CLIENT_SECRET;
@@ -64,8 +64,9 @@ passport.use(
     },
 
     async (accessToken, refreshToken, profile, done) => {
-      console.log(cont);
-      cont++;
+        accountSelected = true;
+        console.log(accountSelected);
+      
         try {
 
             user.email = profile.emails[0].value;
@@ -116,7 +117,7 @@ app.get('/auth/google/callback', passport.authenticate('google', {
   console.log(res.data);
 });*/
 
-
+console.log(accountSelected);
 app.get('/success', (req, res) => {
   const htmlResponse = `
     <!DOCTYPE html>
