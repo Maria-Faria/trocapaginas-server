@@ -104,7 +104,7 @@ passport.deserializeUser((user, done) => {
 app.get('/login-google', (req, res) => {
   user.email = null;
 
-  res.send('/auth/google') ;
+  res.redirect('/auth/google') ;
 })
 
 app.get('/auth/google', passport.authenticate('google', {scope: ['profile', 'email']}));
