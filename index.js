@@ -14,8 +14,6 @@ const port = process.env.PORT;
 const database = new Database();
 const user = new User();
 
-let accountSelected = false;
-
 const clientid = process.env.GOOGLE_CLIENT_ID;
 const clientsecret = process.env.GOOGLE_CLIENT_SECRET;
 
@@ -64,7 +62,7 @@ passport.use(
     },
 
     async (accessToken, refreshToken, profile, done) => {
-        accountSelected = true;
+        const accountSelected = true;
         console.log(accountSelected);
       
         try {
