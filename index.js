@@ -142,8 +142,8 @@ app.get('/login/success', (req, res) => {
   const userValidation = [user, accountSelected]
   console.log(accountSelected)
   console.log(user)
-  console.log(userValidation)
-  res.send(JSON.stringify(user));
+  console.log('listinha: ' + userValidation)
+  res.send(userValidation);
 });
 
 app.get('/login/failed', (req, res) => {
