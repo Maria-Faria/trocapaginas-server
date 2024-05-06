@@ -17,8 +17,6 @@ const user = new User();
 const clientid = process.env.GOOGLE_CLIENT_ID;
 const clientsecret = process.env.GOOGLE_CLIENT_SECRET;
 
-let accountSelected = false;
-
 async function userExists(email) {
   return await database.getUsers().then(users => {
     const userWithEmail = users.find(user => {
@@ -36,9 +34,6 @@ app.use(cors({
   }
 ));
 
-/*app.use(cors({
-  origin: "http://localhost:8081",
-}));*/
 
 app.use(express.json());
 
@@ -64,8 +59,6 @@ passport.use(
     },
 
     async (accessToken, refreshToken, profile, done) => {
-        accountSelected = true;
-        console.log(accountSelected);
       
         try {
 
@@ -123,7 +116,6 @@ app.get('/auth/google/callback', passport.authenticate('google', {
   console.log(res.data);
 });*/
 
-console.log(accountSelected);
 app.get('/success', (req, res) => {
   const htmlResponse = `
     <!DOCTYPE html>
