@@ -141,7 +141,7 @@ app.get('/success', (req, res) => {
 app.get('/login/success', (req, res) => {
   const userValidation = [user, accountSelected]
   console.log(accountSelected)
-  console.log(user)
+  console.log(req.user)
   console.log('listinha: ' + userValidation)
   res.send(userValidation);
 });
