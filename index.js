@@ -17,7 +17,7 @@ const user = new User();
 const clientid = process.env.GOOGLE_CLIENT_ID;
 const clientsecret = process.env.GOOGLE_CLIENT_SECRET;
 
-let userValidation = false;
+let accountSelected = false;
 
 async function userExists(email) {
   return await database.getUsers().then(users => {
