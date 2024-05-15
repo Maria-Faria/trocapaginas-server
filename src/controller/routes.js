@@ -44,6 +44,7 @@ routes.post('/login', (req, res) => {
         const validateUser = users.find(user => user.email === email && bcrypt.compareSync(password, user.password));
         
         if(validateUser !== undefined) {
+            console.log(validateUser.photo);
             validateUser.photo = validateUser.photo.toString('utf8');
 
             user.idUser = validateUser.idUser;
