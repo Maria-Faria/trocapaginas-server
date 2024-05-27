@@ -252,11 +252,6 @@ routes.get('/publications', async (req, res) => {
             }    
         })
 
-        allPublications.map((pub) => {
-            console.log(pub.timepost)
-        })
-        console.log('--------------------')
-
         contPost += 3;
         contReview += 2;
         
@@ -267,5 +262,20 @@ routes.get('/publications', async (req, res) => {
         return res.status(400).send('deu tudo errado')
     }
 });
+
+routes.post('/user-publication', async (req, res) => {
+    const {id_user} = req.body;
+    try {
+        const user_owner_publication = await database.getUsersById(id_user);
+
+        user_owner_publication[0].photo = user_owner_publication[0].photo.toString('utf8');
+
+        return res.status(200).send(user_owner_publication[0]);
+
+    } catch (error) {
+        console.log(error)
+        return res.send(error)
+    }
+})
 
 export default routes;
