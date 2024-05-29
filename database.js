@@ -26,7 +26,7 @@ export class Database {
     }
 
     async createReview(review) {
-        await sql `insert into reviews (id_user, title, content, nameBook, rating, imagebook, timepost) values (${review.idUser},${review.title}, ${review.content}, ${review.nameBook}, ${review.rating}, ${review.imageBook}, ${review.timePost})`;
+        await sql `insert into reviews (id_user, title, content, nameBook, rating, image_post, timepost) values (${review.idUser},${review.title}, ${review.content}, ${review.nameBook}, ${review.rating}, ${review.imageBook}, ${review.timePost})`;
     }
 
     async getUsersPosts(init) {
