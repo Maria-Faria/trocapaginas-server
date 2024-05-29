@@ -38,6 +38,7 @@ export class Database {
     }
 
     async getUsersReviews(init) {
+        console.log('aaaaaaaaaaaaaaa')
         const users_and_reviews= await sql `select reviews.*, users.name, users.photo
         from reviews inner join users using(id_user)
         limit 2 offset ${init}`;
