@@ -235,6 +235,8 @@ routes.get('/publications', async (req, res) => {
 
         let reviews = await getReviews();
 
+        console.log(reviews.length)
+
         if(reviews.length < 2) {
             contReview = 0;
             reviews = await getReviews();
