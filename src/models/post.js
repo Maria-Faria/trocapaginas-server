@@ -9,4 +9,4 @@ export class Post {
         this.username = username;
         this.user_photo = user_photo;
     }
- }
+}

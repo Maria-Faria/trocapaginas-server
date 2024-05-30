@@ -9,7 +9,7 @@ export class Database {
 
     //retornar usuário 
     async getUsersById(id_user) {
-        const users_with_id = sql `select name, photo from users where id_user = ${id_user}`;
+        const users_with_id = sql `select name, photo, email from users where id_user = ${id_user}`;
         return users_with_id;
     }
 
@@ -32,17 +32,38 @@ export class Database {
     async getUsersPosts(init) {
         const users_and_posts = await sql `select posts.*, users.name, users.photo
         from posts inner join users using(id_user)
-        limit 3 offset ${init}`;
+        limit 5 offset ${init}`;
 
         return users_and_posts;
     }
 
     async getUsersReviews(init) {
-        console.log('aaaaaaaaaaaaaaa')
         const users_and_reviews= await sql `select reviews.*, users.name, users.photo
         from reviews inner join users using(id_user)
-        limit 2 offset ${init}`;
+        limit 5 offset ${init}`;
 
         return users_and_reviews;
+    }
+
+    async createComment (comments) {
+        await sql `insert into comments (content_coment, id_book, id_post, id_review, id_user, id_ time_coment) 
+        values (${comments.idUser}, ${comments.IdComment}, ${comments.comment}, ${comments.time})`;
+    }
+
+    async getMyPosts(email) {
+        console.log(email)
+        const myPosts = sql `select posts.*, users.name, users.photo 
+        from posts inner join users using(id_user)
+        where users.email = ${email}`;
+
+        return myPosts;
+    }
+
+    async getMyReviews(email) {
+        const myReviews = sql `select reviews.*, users.name, users.photo
+        from reviews inner join users using(id_user) 
+        where users.email = ${email}`;
+
+        return myReviews; 
     }
 }
