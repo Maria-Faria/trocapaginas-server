@@ -259,7 +259,6 @@ routes.post('/user-publication', async (req, res) => {
         return res.status(200).send(user_owner_publication[0]);
 
     } catch (error) {
-        console.log(error)
         return res.send(error)
     }
 });
