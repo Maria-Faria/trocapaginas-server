@@ -31,7 +31,7 @@ async function userExists(email) {
 
 function validateImage(imageURI){
     console.log(imageURI)
-    if(imageURI === undefined) {
+    if(imageURI === undefined || imageURI === '') {
         review.imageBook = 'https://cdn2.iconfinder.com/data/icons/new-year-resolutions/64/resolutions-05-256.png';
         post.imageBook = 'https://cdn2.iconfinder.com/data/icons/new-year-resolutions/64/resolutions-05-256.png';
 
