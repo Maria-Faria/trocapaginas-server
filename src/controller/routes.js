@@ -5,7 +5,6 @@ import bcrypt from 'bcryptjs';
 import {User} from '../models/user.js';
 import {Post} from '../models/post.js';
 import {Review} from '../models/review.js';
-import {Comment} from '../models/comment.js';
 
 const routes = express.Router();
 const database = new Database();
@@ -15,7 +14,6 @@ const post = new Post();
 const review = new Review();
 const validationCode = [];
 const timeNow = new Date().toLocaleString(Intl.DateTimeFormat("pt-BR"));
-const comments = new Comment();
 
 let contPost = 0;
 let contReview = 0; 
@@ -32,7 +30,8 @@ async function userExists(email) {
 }
 
 function validateImage(imageURI){
-    if(imageURI === undefined) {
+    console.log(imageURI)
+    if(imageURI === undefined || imageURI === '') {
         review.imageBook = 'https://cdn2.iconfinder.com/data/icons/new-year-resolutions/64/resolutions-05-256.png';
         post.imageBook = 'https://cdn2.iconfinder.com/data/icons/new-year-resolutions/64/resolutions-05-256.png';
 
@@ -69,24 +68,6 @@ function sortPublications(publications) {
     publications.sort((a, b) => {
         return new Date(a.timepost.split(', ')[0].split('/').reverse().join('-')) - new Date(b.timepost.split(', ')[0].split('/').reverse().join('-'));
     })
-}
-
-async function getUserByEmail(email) {
-    if(email !== null) {
-        const user = await userExists(email);
-
-        return user.id_user;
-    }
-}
-
-async function bookExists(imageBook) {
-    const books = await database.getBooks();
-
-    if(books.find((book) => book.cover === imageBook)) {
-        return true;
-    }
-
-    return false;
 }
 
 //login
@@ -279,7 +260,6 @@ routes.post('/user-publication', async (req, res) => {
         return res.status(200).send(user_owner_publication[0]);
 
     } catch (error) {
-        console.log(error)
         return res.send(error)
     }
 });
@@ -304,174 +284,6 @@ routes.post('/my-publications', async (req, res) => {
 
     }catch(error) {
         return res.status(400).send('Publicações não encontradas');
-    }
-});
-
-routes.get('/notifications', async (req, res) => {
-    const notifications = [];
-
-    try {
-        const ownerBook = await database.getUserOwnerInfo();
-        const receiverBook = await database.getReceiverBookInfo();
-
-        notifications.push(ownerBook, receiverBook);
-
-        console.log(notifications);
-
-        return res.status(200).send(notifications);
-
-    } catch (error) {
-        return res.status(404).send('Nenhuma notificação encontrada');
-    }
-});
-
-routes.post('/save-book', async (req, res) => {
-    const {userEmail, imageBook, titleBook, writerBook, ratingBook, bookReview, choiceUser} = req.body;
-    let id_user = null
-
-    if(userEmail !== null) {
-        id_user = await getUserByEmail(userEmail);
-    }
-
-    try {
-        if(! await bookExists(imageBook)) {
-            await database.createBook(id_user, imageBook, titleBook, writerBook, ratingBook, bookReview);
-        
-        }else {
-            const books = await database.getBookByImage(imageBook);
-            const totalRatings = books[0].totalratings + 1;
-            const sumRatings = books[0].sumratings + ratingBook;
-            const rating = Math.round(sumRatings / totalRatings)
-
-            await database.updateBook(imageBook, totalRatings, sumRatings, rating);
-        }
-
-        if(choiceUser === 'hasInterest') {
-            const interests = await database.getInterests();
-
-            if(!interests.find((interest) => interest.imagebook === imageBook)) {
-                await database.setInterest(id_user, titleBook, imageBook, writerBook);
-            }
-        
-        }else if(choiceUser === 'exchange') {
-            const myExchanges = await database.getMyExchanges();
-
-            if(!myExchanges.find((exchange) => exchange.imagebook === imageBook)) {
-                await database.setMyExchanges(id_user, titleBook, imageBook, writerBook);
-            }
-        }
-
-        return res.status(200).send('Livro salvo com sucesso!');
-
-    } catch (error) {
-        return res.status(500).send(error);
-    }
-});
-
-routes.post('/my-interests', async (req, res) => {
-    const {email} = req.body;
-
-    try {
-        const myInterests = await database.getMyInterests(email);
-
-        return res.status(200).send(myInterests);
-
-    }catch(error) {
-        return res.status(400).send('Interesses não encontrados');
-    }
-});
-
-routes.post('/my-book-for-exchange', async (req, res) => {
-    const {email} = req.body;
-
-    try {
-        const myExchangesByEmail = await database.myExchangesByEmail(email);
-
-        return res.status(200).send(myExchangesByEmail);
-        
-    } catch (error) {
-        return res.status(400).send('Nenhum livro encontrado para troca');
-    }
-})
-
-routes.post('/get-book', async (req, res) => {
-    const {imageBook} = req.body;
-
-    try {
-        const book = await database.getBookByImage(imageBook);
-
-        return res.status(200).send(book);
-
-    }catch(error) {
-        return res.status(400).send('Livro não encontrado');
-    }
-});
-
-routes.get('/book-reviews', async(req, res) => {
-    const {title} = req.query;
-
-    try {
-        const reviewsBook = await database.getBookReviews(title);
-
-        reviewsBook.map((review) => {
-            review.photo = review.photo.toString('utf8');
-        })
-        
-        return res.status(200).send(reviewsBook);
-
-    } catch (error) {
-        return res.status(500).send('Erro ao carregar as resenhas');
-    }
-});
-
-routes.post('/update-profile', async(req, res) => {
-    const {email, name, oldPassword, newPassword} = req.body;
-
-    try {
-        const user = await userExists(email);
-
-        if(bcrypt.compareSync(oldPassword, user.password)) {
-            await database.updateUser(name, email, bcrypt.hashSync(newPassword, salt));
-
-            return res.status(200).send('Informações atualizadas com sucesso!');
-
-        }else {
-            return res.status(401).send('Senha atual não confere, tente novamente!');
-        }
-
-    } catch (error) {
-        return res.status(500).send(error);
-    }
-});
-
-routes.post('/comment', async (req, res) => {
-    const {idUser, id, comment} = req.body;
-    comments.idUser = idUser;
-    comments.idPublication = id;
-    comments.comment = comment;
-
-    try{
-        await database.createComment(comments).then(() => {
-            return res.status(201).send('Comentario criado com sucesso!');
-        });
-    } catch(error) {
-        return res.status(500).send('Erro ao criar o comentario');
-    }
-});
-
-
-routes.get('/loadComments', async(req, res) => {
-    const {idPublication} = req.query;
-
-    try {
-        const loadComment = await database.getloadComments(idPublication);
-
-        loadComment.map((comment) => {
-            comment.photo = comment.photo.toString('utf-8');
-        })
-        return res.status(200).send(loadComment);
-    } catch (error) {
-        return res.status(500).send('Erro interno ao carregar os comentários da publicação');
     }
 });
 
