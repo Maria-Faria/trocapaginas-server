@@ -163,8 +163,8 @@ app.get('/user-data', async (req, res) => {
 });
 
 
-app.listen(() => { 
-  console.log(`Servidor rodando`);
+app.listen(port() => { 
+  console.log(`Servidor rodando na porta ${port}`);
 });
 
 app.use(routes);
