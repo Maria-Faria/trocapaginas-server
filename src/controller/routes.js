@@ -1,10 +1,10 @@
 import express from 'express';
-import {Database} from '../../database.js';
-import {ResetSenha} from '../../reset-senha.js';
+import {Database} from '././database.js';
+import {ResetSenha} from '././reset-senha.js';
 import bcrypt from 'bcryptjs';
-import {User} from '../models/user.js';
-import {Post} from '../models/post.js';
-import {Review} from '../models/review.js';
+import {User} from './models/user.js';
+import {Post} from './models/post.js';
+import {Review} from './models/review.js';
 
 const routes = express.Router();
 const database = new Database();
