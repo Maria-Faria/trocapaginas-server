@@ -14,7 +14,7 @@ export class Controller {
         });
     }
 
-    async getPosts() {
+    async getPosts(contPost) {
         const posts = await database.getUsersPosts(contPost).then((posts) => {
                 
             posts.forEach(post => {
@@ -26,7 +26,7 @@ export class Controller {
         return posts;
     }
 
-    async getReviews() {
+    async getReviews(contReview) {
         const reviews = await database.getUsersReviews(contReview).then((reviews) => {
             reviews.forEach(review => {
                 review.photo = review.photo.toString('utf-8');

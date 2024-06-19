@@ -246,9 +246,12 @@ routes.post('/review', async (req, res) => {
 
 routes.get('/publications', async (req, res) => {
     try{
-        const posts = await controller.getPosts();
-        const reviews = await controller.getReviews();
+        const posts = await controller.getPosts(contPost);
+        const reviews = await controller.getReviews(contReview);
         const publications = posts.concat(reviews);
+
+        console.log(posts)
+        console.log(reviews)
 
         posts.length === 0 ? contPost = 0 : contPost += 5;
         reviews.length === 0 ? contReview = 0 : contReview += 5;
