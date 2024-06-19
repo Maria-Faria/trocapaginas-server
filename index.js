@@ -1,24 +1,24 @@
 import 'dotenv/config';
 import express from 'express';
 import cors from 'cors';
-//import routes from './src/controller/routes.js';
+import routes from './src/controller/routes.js';
 import session from 'express-session';
 import passport from 'passport';
 import OAuth2Strategy from 'passport-google-oauth2';
-//import {Database} from './database.js';
-//import {User} from './src/models/user.js';
+import {Database} from './database.js';
+import {User} from './src/models/user.js';
 import bodyParser from 'body-parser';
 
 const oauth2strategy = OAuth2Strategy.Strategy;
 const app = express(); 
 const port = process.env.PORT;
-//const database = new Database();
-//const user = new User();
+const database = new Database();
+const user = new User();
 
 const clientid = process.env.GOOGLE_CLIENT_ID;
 const clientsecret = process.env.GOOGLE_CLIENT_SECRET;
 
-/*async function userExists(email) {
+async function userExists(email) {
   return await database.getUsers().then(users => {
     const userWithEmail = users.find(user => {
       return user.email === email;
@@ -27,7 +27,7 @@ const clientsecret = process.env.GOOGLE_CLIENT_SECRET;
     return userWithEmail;
   });
 }
-*/
+
 app.use(cors({
   origin: 'http://localhost:8081',
   methods: 'GET, POST, PUT, DELETE',
@@ -60,7 +60,7 @@ passport.use(
 
     async (accessToken, refreshToken, profile, done) => {
       
-        /*try {
+        try {
 
             user.email = profile.emails[0].value;
             user.name = profile.displayName;
@@ -82,11 +82,10 @@ passport.use(
         } catch (error) {
             console.log(error);
             return done(error, null);
-        }*/
+        }
   })
 );
-
-/*passport.serializeUser((user, done) => {
+passport.serializeUser((user, done) => {
   done(null, user);
 });
 
@@ -154,7 +153,7 @@ app.get('/login/failed', (req, res) => {
     res.status(401).send(htmlResponse);
 });
 
-app.use(routes);*/
+app.use(routes);
 
 app.listen(port, () => { 
   console.log(`Servidor rodando na porta ${port}`);
