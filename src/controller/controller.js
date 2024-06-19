@@ -15,8 +15,7 @@ export class Controller {
     }
 
     async getPosts(contPost) {
-        const posts = await database.getUsersPosts(contPost).then((posts) => {
-                
+        const posts = await this.database.getUsersPosts(contPost).then((posts) => {
             posts.forEach(post => {
                 post.photo = post.photo.toString('utf-8');
             })
@@ -27,7 +26,7 @@ export class Controller {
     }
 
     async getReviews(contReview) {
-        const reviews = await database.getUsersReviews(contReview).then((reviews) => {
+        const reviews = await this.database.getUsersReviews(contReview).then((reviews) => {
             reviews.forEach(review => {
                 review.photo = review.photo.toString('utf-8');
             })
@@ -52,7 +51,7 @@ export class Controller {
     }
 
     async bookExists(imageBook) {
-        const books = await database.getBooks();
+        const books = await this.database.getBooks();
 
         if(books.find((book) => book.cover === imageBook)) {
             return true;
