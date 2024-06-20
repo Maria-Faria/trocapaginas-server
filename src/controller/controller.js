@@ -44,7 +44,7 @@ export class Controller {
 
     async getUserByEmail(email) {
         if(email !== null) {
-            const user = await userExists(email);
+            const user = await this.userExists(email);
 
             return user.id_user;
         }

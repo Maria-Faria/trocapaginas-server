@@ -474,4 +474,21 @@ routes.get('/loadComments', async(req, res) => {
     }
 });
 
+routes.post('/exchange', async(req, res) => {
+    const {email, dateExchange, localExchange, myBook, bookExchange, emailOwnerBook} = req.body;
+
+    const idUserReceiver = await controller.getUserByEmail(email);
+    const idUserOwner = await controller.getUserByEmail(emailOwnerBook);
+
+    try{
+        await database.setExchangeWish(idUserOwner, idUserReceiver, 'pendente', myBook, bookExchange);
+
+        return res.status(200).send('Troca solicitada com sucesso!');
+    
+    }catch(error) {
+        return res.status(500).send('Erro ao solicitar troca...')
+    }
+
+});
+
 export default routes;
