@@ -26,7 +26,7 @@ export class Database {
     }
 
     async updatePhotoUser(email, photo) {
-        await sql `update users set photo = ${photo} whwre email = ${email}`;
+        await sql `update users set photo = ${photo} where email = ${email}`;
     }
     async createPost(post) {
         await sql `insert into posts (id_user, content, timepost, nameBook, image_post) values (${post.idUser}, ${post.content}, ${post.timePost}, ${post.nameBook}, ${post.imageBook})`;
