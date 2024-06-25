@@ -74,6 +74,7 @@ passport.use(
                 });  
 
             }else {
+                await database.updatePhotoUser(user.email, user.photo);
                 console.log('Usuário já cadastrado!');
             }
 

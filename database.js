@@ -25,6 +25,9 @@ export class Database {
         await sql `update users set name = ${name}, password = ${password} where email = ${email}`;
     }
 
+    async updatePhotoUser(email, photo) {
+        await sql `update users set photo = ${photo} whwre email = ${email}`;
+    }
     async createPost(post) {
         await sql `insert into posts (id_user, content, timepost, nameBook, image_post) values (${post.idUser}, ${post.content}, ${post.timePost}, ${post.nameBook}, ${post.imageBook})`;
     }
@@ -166,5 +169,20 @@ export class Database {
     async setExchangeWish(id_user_owner, id_user_receiver, status, myBook, bookExchange) {
         await sql `insert into exchange (id_user_owner, id_user_receiver, status, mybook, bookexchange) values (${id_user_owner}, ${id_user_receiver}, ${status}, ${myBook}, ${bookExchange})`;
 
+    }
+
+    async setLike(id_user, id_publication) {
+        await sql `insert into likes (id_user, id_publication) values (${id_user}, ${id_publication})`;
+    }
+
+    async getLikes(id_publication, id_user) {
+        const likes = await sql `select * from likes where id_publication = ${id_publication} and id_user = ${id_user}`;
+
+        return likes;
+    }
+
+    async setDislike(id_user, id_publication) {
+        console.log(id_user, id_publication)
+        await sql `delete from likes where id_publication = ${id_publication} and id_user = ${id_user}`;
     }
 }
