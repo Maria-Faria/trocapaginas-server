@@ -69,7 +69,7 @@ passport.use(
 
             if(await userExists(profile.emails[0].value) === undefined) {
 
-                await database.create(user.name, user.email, user.password, user.photo).then(() => {
+                await database.create(user).then(() => {
                     console.log('user add');
                 });  
 
@@ -85,6 +85,7 @@ passport.use(
         }
   })
 );
+
 passport.serializeUser((user, done) => {
   done(null, user);
 });
@@ -153,8 +154,9 @@ app.get('/login/failed', (req, res) => {
     res.status(401).send(htmlResponse);
 });
 
-app.use(routes);
 
 app.listen(port, () => { 
   console.log(`Servidor rodando na porta ${port}`);
 });
+
+app.use(routes);
