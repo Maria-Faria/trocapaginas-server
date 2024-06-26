@@ -172,8 +172,8 @@ export class Database {
         return comments;
     }
 
-    async setExchangeWish(id_user_owner, id_user_receiver, status, myBook, bookExchange) {
-        await sql `insert into exchange (id_user_owner, id_user_receiver, status, mybook, bookexchange) values (${id_user_owner}, ${id_user_receiver}, ${status}, ${myBook}, ${bookExchange})`;
+    async setExchangeWish(id_user_owner, id_user_receiver, status, myBook, bookExchange, dateExchange) {
+        await sql `insert into exchange (id_user_owner, id_user_receiver, status, mybook, bookexchange, dateExchange) values (${id_user_owner}, ${id_user_receiver}, ${status}, ${myBook}, ${bookExchange}, ${dateExchange})`;
 
     }
 
@@ -191,4 +191,16 @@ export class Database {
         console.log(id_user, id_publication)
         await sql `delete from likes where id_publication = ${id_publication} and id_user = ${id_user}`;
     }
+
+    
+    async getExchangeBooks(bookTitle) {
+        const myExchange = await sql`
+            SELECT users.name, users.photo, myexchanges.*
+            FROM users
+            INNER JOIN myexchanges ON myexchanges.id_user = users.id_user
+            WHERE myexchanges.titlebook = ${bookTitle}
+        `;
+        return myExchange;
+    }
+    
 }

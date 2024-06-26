@@ -283,6 +283,10 @@ routes.post('/save-book', async (req, res) => {
         if(choiceUser === 'hasInterest') {
             const interests = await database.getInterests();
 
+            interests.forEach((interest) => {
+                console.log(interest.imagebook)
+            })
+
             if(!interests.find((interest) => interest.imagebook === imageBook)) {
                 await database.setInterest(id_user, titleBook, imageBook, writerBook);
             }
@@ -413,15 +417,20 @@ routes.get('/loadComments', async(req, res) => {
 });
 
 routes.post('/exchange', async(req, res) => {
-    const {email, dateExchange, localExchange, myBook, bookExchange, emailOwnerBook} = req.body;
+    const {email, dateExchange, myBook, bookExchange, idUserOwner} = req.body;
 
     const idUserReceiver = await controller.getUserByEmail(email);
-    const idUserOwner = await controller.getUserByEmail(emailOwnerBook);
 
     try{
-        await database.setExchangeWish(idUserOwner, idUserReceiver, 'pendente', myBook, bookExchange);
+        if(idUserOwner !== idUserReceiver) {
+            await database.setExchangeWish(idUserOwner, idUserReceiver, 'pendente', myBook, bookExchange, dateExchange);
 
-        return res.status(200).send('Troca solicitada com sucesso!');
+            return res.status(200).send(['Sucesso', 'Troca solicitada com sucesso!']);
+        
+        }else {
+            return res.status(200).send(['Erro','Você não pode trocar um livro com você mesmo!']);
+        }
+        
     
     }catch(error) {
         return res.status(500).send('Erro ao solicitar troca...')
@@ -479,4 +488,18 @@ routes.get('/get-like', async(req, res) => {
     }
 });
 
+routes.get('/book-exchanges', async (req, res) => {
+    const { titleBook } = req.query;
+    try {
+        console.log('entrou na chamada da rota rsrsr');
+        const loadExchange = await database.getExchangeBooks(titleBook);
+        
+        return res.status(200).send(loadExchange);
+
+    } catch (error) {
+        return res.status(500).send('Erro interno ao carregar as trocas');
+    }
+});
+
+    
 export default routes;
