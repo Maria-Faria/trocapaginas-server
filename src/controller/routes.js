@@ -263,6 +263,8 @@ routes.post('/save-book', async (req, res) => {
     const {userEmail, imageBook, titleBook, writerBook, ratingBook, bookReview, choiceUser} = req.body;
     let id_user = null
 
+    console.log(userEmail, imageBook, titleBook, writerBook)
+
     if(userEmail !== null) {
         id_user = await controller.getUserByEmail(userEmail);
     }
@@ -278,6 +280,8 @@ routes.post('/save-book', async (req, res) => {
             const rating = Math.round(sumRatings / totalRatings)
 
             await database.updateBook(imageBook, totalRatings, sumRatings, rating);
+
+            console.log('aoba')
         }
 
         if(choiceUser === 'hasInterest') {
