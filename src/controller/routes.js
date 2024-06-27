@@ -36,6 +36,7 @@ routes.post('/login', (req, res) => {
             user.password = validateUser.password;
             user.photo = validateUser.photo;
 
+            console.log(user)
             return res.status(200).send(validateUser);
         
         }else {
