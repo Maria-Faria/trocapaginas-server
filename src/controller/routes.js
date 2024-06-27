@@ -36,7 +36,6 @@ routes.post('/login', (req, res) => {
             user.password = validateUser.password;
             user.photo = validateUser.photo;
 
-            console.log(user)
             return res.status(200).send(validateUser);
         
         }else {
@@ -237,8 +236,6 @@ routes.get('/notifications', async (req, res) => {
 
         notifications.push(ownerBook, receiverBook);
 
-        console.log(notifications)
-
         return res.status(200).send(notifications);
 
     } catch (error) {
@@ -264,8 +261,6 @@ routes.post('/save-book', async (req, res) => {
     const {userEmail, imageBook, titleBook, writerBook, ratingBook, bookReview, choiceUser} = req.body;
     let id_user = null
 
-    console.log(userEmail, imageBook, titleBook, writerBook)
-
     if(userEmail !== null) {
         id_user = await controller.getUserByEmail(userEmail);
     }
@@ -281,16 +276,10 @@ routes.post('/save-book', async (req, res) => {
             const rating = Math.round(sumRatings / totalRatings)
 
             await database.updateBook(imageBook, totalRatings, sumRatings, rating);
-
-            console.log('aoba')
         }
 
         if(choiceUser === 'hasInterest') {
             const interests = await database.getInterests();
-
-            interests.forEach((interest) => {
-                console.log(interest.imagebook)
-            })
 
             if(!interests.find((interest) => interest.imagebook === imageBook)) {
                 await database.setInterest(id_user, titleBook, imageBook, writerBook);
@@ -394,8 +383,6 @@ routes.post('/comment', async (req, res) => {
     comments.idPublication = id;
     comments.comment = comment;
 
-    console.log(idUser, id, comment)
-
     try{
         await database.createComment(comments).then(() => {
             return res.status(201).send('Comentario criado com sucesso!');
@@ -496,7 +483,6 @@ routes.get('/get-like', async(req, res) => {
 routes.get('/book-exchanges', async (req, res) => {
     const { titleBook } = req.query;
     try {
-        console.log('entrou na chamada da rota rsrsr');
         const loadExchange = await database.getExchangeBooks(titleBook);
         
         return res.status(200).send(loadExchange);
