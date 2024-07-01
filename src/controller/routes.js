@@ -418,6 +418,7 @@ routes.post('/exchange', async(req, res) => {
         if(idUserOwner !== idUserReceiver) {
             await database.setExchangeWish(idUserOwner, idUserReceiver, 'pendente', myBook, bookExchange, dateExchange);
 
+            console.log('Funcionando')
             return res.status(200).send(['Sucesso', 'Troca solicitada com sucesso!']);
         
         }else {
@@ -426,6 +427,7 @@ routes.post('/exchange', async(req, res) => {
         
     
     }catch(error) {
+        console.log(error)
         return res.status(500).send('Erro ao solicitar troca...')
     }
 
