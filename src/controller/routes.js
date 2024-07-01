@@ -286,6 +286,7 @@ routes.post('/save-book', async (req, res) => {
             }
         
         }else if(choiceUser === 'exchange') {
+            console.log(titleBook)
             const myExchanges = await database.getMyExchanges();
 
             if(!myExchanges.find((exchange) => exchange.imagebook === imageBook)) {
